@@ -31,7 +31,7 @@ export default{
          id: 1,
          states: [
                   {name: 'New York', id: 1},
-                  { name: 'Boston', id: 2}
+                  {name: 'Boston', id: 2}
                  ]
         },
         {name: 'United Kingdom', 
