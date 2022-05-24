@@ -4,7 +4,10 @@
 
       <h4 class="title">Country State City Dropdown Demo</h4>
       
-      <select class="selector" v-model="selectedCountry" @click="getCountries">
+      <select class="selector" 
+              v-model="selectedCountry" 
+              @click="getCountries"
+      >
         <option value="">Select a Country</option>
         <option v-for="(country, id) in countries" 
                 :key="id"
@@ -14,7 +17,11 @@
       </select>
       <br>
 
-      <select class="selector" v-model="selectedState" @click="getStates">
+      <select class="selector" 
+      v-model="selectedState" 
+      @click="getStates"
+      :disabled="countries.length === 0"
+      >
         <option value="">Select a State</option>
         <option v-for="(state, id) in states" 
                 :key="id"
@@ -23,7 +30,11 @@
         </option>
       </select>
       <br>
-      <select class="selector" v-model="selectedCity" @click="getCities" >
+      <select class="selector" 
+              v-model="selectedCity" 
+              @click="getCities" 
+              :disabled="states.length === 0"
+      >
         <option value="">Select a City</option>
         <option v-for="(city, id) in cities" 
                 :key="id"
@@ -190,30 +201,37 @@ export default {
 <style>
 
 .dropdown-container {
-  
+
 }
 
 .title {
   font-size: 1.25rem;
   letter-spacing: -.0166573em;
   opacity: 1;
-  color: rgba(31,41,55);
-  text-align: center;
+  color: rgba(31, 41, 55, 0.765);
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight: normal;
+  padding-left: 40px;
+  height: 4px;
 }
 
 .selected {
   color: rgba(124, 65, 212, 0.836);
+  display: block;
+  margin-top: 3px;
+  padding-left: 10px;
+  width: 380px;
+  
 }
 
 .selector {
   width: 400px;
-  border-width: 1px;
+  border-width: 2px;
   border-radius: 9999px;
-  border-color: rgba(209,213,219);   
-  color: rgba(31,41,55);
   height: 2.5rem;
   padding-left: 5px;
   opacity: 1;
+  margin-top: 7px;
 }
 
 </style>
