@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <select class="country-selector" v-model="selectedCountry" @click="getCountries">
+    <select class="selector" v-model="selectedCountry" @click="getCountries">
       <option value="">Select a Country</option>
       <option v-for="(country, id) in countries" 
               :key="id"
@@ -8,9 +8,9 @@
         {{ country.country_name }}
       </option>
     </select>
-    <div>{{ selectedCountry }}</div>
+    <br>
 
-    <select class="state-selector" v-model="selectedState" @click="getStates">
+    <select class="selector" v-model="selectedState" @click="getStates">
       <option value="">Select a State</option>
       <option v-for="(state, id) in states" 
               :key="id"
@@ -18,9 +18,8 @@
         {{ state.state_name }}
       </option>
     </select>
-    <div>{{ selectedState }}</div>
-
-    <select class="city-selector" v-model="selectedCity" @click="getCities" >
+    <br>
+    <select class="selector" v-model="selectedCity" @click="getCities" >
       <option value="">Select a City</option>
       <option v-for="(city, id) in cities" 
               :key="id"
@@ -29,6 +28,8 @@
       </option>
     </select>
     <div>{{ city.city_name }}</div>
+
+    <div class="selected">"country": {{ selectedCountry }}, "state": {{ selectedState }}, "city": {{ selectedCity }}</div>
 
   </div>
 </template>
@@ -111,9 +112,10 @@ export default {
         countries: [],
         cities: [],
         states: [],
-        selectedCountry: {},
-        selectedState: {},
-        selectedCity: {},
+        selectedCountry: "",
+        selectedState: "",
+        selectedCity: "",
+        city: ""
       };
     },
 
@@ -181,14 +183,16 @@ export default {
 </script>
 
 <style>
-.country-selector {
-  width: 500px;
-}
-.state-selector {
-  width: 500px;
+.app {
+
 }
 
-.city-selector {
-  width: 500px;
+.selected {
+  color: rgb(183, 82, 183);
+}
+
+.selector {
+  width: 400px;
+  border-radius: 10px;
 }
 </style>
