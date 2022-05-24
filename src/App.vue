@@ -1,36 +1,41 @@
 <template>
   <div id="app">
-    <select class="selector" v-model="selectedCountry" @click="getCountries">
-      <option value="">Select a Country</option>
-      <option v-for="(country, id) in countries" 
-              :key="id"
-              :value="country.country_name">
-        {{ country.country_name }}
-      </option>
-    </select>
-    <br>
+    <div class="dropdown-container">
 
-    <select class="selector" v-model="selectedState" @click="getStates">
-      <option value="">Select a State</option>
-      <option v-for="(state, id) in states" 
-              :key="id"
-              :value="state.state_name">
-        {{ state.state_name }}
-      </option>
-    </select>
-    <br>
-    <select class="selector" v-model="selectedCity" @click="getCities" >
-      <option value="">Select a City</option>
-      <option v-for="(city, id) in cities" 
-              :key="id"
-              :value="city.city_name">
-        {{ city.city_name }}
-      </option>
-    </select>
-    <div>{{ city.city_name }}</div>
+      <h4 class="title">Country State City Dropdown Demo</h4>
+      
+      <select class="selector" v-model="selectedCountry" @click="getCountries">
+        <option value="">Select a Country</option>
+        <option v-for="(country, id) in countries" 
+                :key="id"
+                :value="country.country_name">
+          {{ country.country_name }}
+        </option>
+      </select>
+      <br>
 
-    <div class="selected">"country": {{ selectedCountry }}, "state": {{ selectedState }}, "city": {{ selectedCity }}</div>
+      <select class="selector" v-model="selectedState" @click="getStates">
+        <option value="">Select a State</option>
+        <option v-for="(state, id) in states" 
+                :key="id"
+                :value="state.state_name">
+          {{ state.state_name }}
+        </option>
+      </select>
+      <br>
+      <select class="selector" v-model="selectedCity" @click="getCities" >
+        <option value="">Select a City</option>
+        <option v-for="(city, id) in cities" 
+                :key="id"
+                :value="city.city_name">
+          {{ city.city_name }}
+        </option>
+      </select>
+      <div>{{ city.city_name }}</div>
 
+      <div class="selected">"country": {{ selectedCountry }}, "state": {{ selectedState }}, "city": {{ selectedCity }}</div>
+
+    </div>
   </div>
 </template>
 
@@ -183,16 +188,32 @@ export default {
 </script>
 
 <style>
-.app {
 
+.dropdown-container {
+  
+}
+
+.title {
+  font-size: 1.25rem;
+  letter-spacing: -.0166573em;
+  opacity: 1;
+  color: rgba(31,41,55);
+  text-align: center;
 }
 
 .selected {
-  color: rgb(183, 82, 183);
+  color: rgba(124, 65, 212, 0.836);
 }
 
 .selector {
   width: 400px;
-  border-radius: 10px;
+  border-width: 1px;
+  border-radius: 9999px;
+  border-color: rgba(209,213,219);   
+  color: rgba(31,41,55);
+  height: 2.5rem;
+  padding-left: 5px;
+  opacity: 1;
 }
+
 </style>
