@@ -9,7 +9,7 @@
               @click="getCountries"
       >
         <option value="">Select a Country</option>
-        <option v-for="(country, id) in countries" 
+        <option class="selector-option" v-for="(country, id) in countries" 
                 :key="id"
                 :value="country.country_name">
           {{ country.country_name }}
@@ -23,7 +23,7 @@
       :disabled="countries.length === 0"
       >
         <option value="">Select a State</option>
-        <option v-for="(state, id) in states" 
+        <option class="selector-option" v-for="(state, id) in states" 
                 :key="id"
                 :value="state.state_name">
           {{ state.state_name }}
@@ -36,7 +36,7 @@
               :disabled="states.length === 0"
       >
         <option value="">Select a City</option>
-        <option v-for="(city, id) in cities" 
+        <option class="selector-option" v-for="(city, id) in cities" 
                 :key="id"
                 :value="city.city_name">
           {{ city.city_name }}
@@ -131,11 +131,31 @@ export default {
         selectedCountry: "",
         selectedState: "",
         selectedCity: "",
-        city: ""
+        city: "",
+        token:""
       };
     },
 
+     created(){
+       this.getToken()
+     },
+
    methods: {
+
+     getToken(){
+       axios.get("https://www.universal-tutorial.com/api/getaccesstoken/", {
+          headers: {
+              "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJzdGV2ZW5rczE3QGdtYWlsLmNvbSIsImFwaV90b2tlbiI6InpmLU1OcldZM3ZCM1FwdXlScUJCSmFmb2FOU2dQRWVqeHNrdzRtN0VjTldEeG5JOTc2UERaYU1oSWUzc3JEX1NnclkifSwiZXhwIjoxNjUzNDI4NTM2fQ.-Ac9CIzmNcpifUSqrkKqTpVeKpMcoKQcS_bif8fs_Kk",
+              "Accept": "application/json",
+              "api-token":"zf-MNrWY3vB3QpuyRqBBJafoaNSgPEejxskw4m7EcNWDxnI976PDZaMhIe3srD_SgrY",
+              "user-email": "stevenks17@gmail.com"
+          }
+        }) 
+        .then(response => {
+          this.token = response.data.auth_token
+        })
+      },
+     
     // await axios
     //   .get("https://www.universal-tutorial.com/api/getaccesstoken/", {
     //     headers: {
@@ -152,23 +172,23 @@ export default {
     //   .catch(function (error) {
     //     console.log(error);
     //   });
-    getCountries() {
-      axios.get("https://www.universal-tutorial.com/api/countries/", {
+
+     getCountries() {
+       axios.get("https://www.universal-tutorial.com/api/countries/", {
           headers: {
-              "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJzdGV2ZW5rczE3QGdtYWlsLmNvbSIsImFwaV90b2tlbiI6InpmLU1OcldZM3ZCM1FwdXlScUJCSmFmb2FOU2dQRWVqeHNrdzRtN0VjTldEeG5JOTc2UERaYU1oSWUzc3JEX1NnclkifSwiZXhwIjoxNjUzNDI4NTM2fQ.-Ac9CIzmNcpifUSqrkKqTpVeKpMcoKQcS_bif8fs_Kk",
+              "Authorization": `Bearer ${this.token}`,
               "Accept": "application/json"
           }
         }) 
         .then(response => {
           this.countries = response.data
         })
-        console.log(this.countries)
     },
 
-    getStates() {
-      axios.get(`https://www.universal-tutorial.com/api/states/${this.selectedCountry}`, {
+     getStates() {
+       axios.get(`https://www.universal-tutorial.com/api/states/${this.selectedCountry}`, {
           headers: {
-              "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJzdGV2ZW5rczE3QGdtYWlsLmNvbSIsImFwaV90b2tlbiI6InpmLU1OcldZM3ZCM1FwdXlScUJCSmFmb2FOU2dQRWVqeHNrdzRtN0VjTldEeG5JOTc2UERaYU1oSWUzc3JEX1NnclkifSwiZXhwIjoxNjUzNDI4NTM2fQ.-Ac9CIzmNcpifUSqrkKqTpVeKpMcoKQcS_bif8fs_Kk",
+              "Authorization": `Bearer ${this.token}`,
               "Accept": "application/json"
           }
         }) 
@@ -178,10 +198,10 @@ export default {
         console.log(this.states)
     },
 
-    getCities() {
-      axios.get(`https://www.universal-tutorial.com/api/cities/${this.selectedState}`, {
+     getCities() {
+       axios.get(`https://www.universal-tutorial.com/api/cities/${this.selectedState}`, {
           headers: {
-              "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJzdGV2ZW5rczE3QGdtYWlsLmNvbSIsImFwaV90b2tlbiI6InpmLU1OcldZM3ZCM1FwdXlScUJCSmFmb2FOU2dQRWVqeHNrdzRtN0VjTldEeG5JOTc2UERaYU1oSWUzc3JEX1NnclkifSwiZXhwIjoxNjUzNDI4NTM2fQ.-Ac9CIzmNcpifUSqrkKqTpVeKpMcoKQcS_bif8fs_Kk",
+              "Authorization": `Bearer ${this.token}`,
               "Accept": "application/json"
           }
         }) 
@@ -200,9 +220,7 @@ export default {
 
 <style>
 
-.dropdown-container {
 
-}
 
 .title {
   font-size: 1.25rem;
