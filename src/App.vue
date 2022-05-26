@@ -18,9 +18,9 @@
       <br>
 
       <select class="selector" 
-      v-model="selectedState" 
-      @click="getStates"
-      :disabled="countries.length === 0"
+              v-model="selectedState" 
+              @click="getStates"
+              :disabled="countries.length === 0"
       >
         <option value="">Select a State</option>
         <option class="selector-option" v-for="(state, id) in states" 
@@ -51,13 +51,6 @@
 </template>
 
 <script>
-// let req = unirest("GET", "https://www.universal-tutorial.com/api/getaccesstoken");
-
-//   req.headers({
-//     "Accept": "application/json",
-//     "api-token": "zf-MNrWY3vB3QpuyRqBBJafoaNSgPEejxskw4m7EcNWDxnI976PDZaMhIe3srD_SgrY",
-//     "user-email": "abc@gmail.com"
-//   });
 const axios = require("axios").default;
 
 export default {
@@ -145,7 +138,6 @@ export default {
      getToken(){
        axios.get("https://www.universal-tutorial.com/api/getaccesstoken/", {
           headers: {
-              "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJfZW1haWwiOiJzdGV2ZW5rczE3QGdtYWlsLmNvbSIsImFwaV90b2tlbiI6InpmLU1OcldZM3ZCM1FwdXlScUJCSmFmb2FOU2dQRWVqeHNrdzRtN0VjTldEeG5JOTc2UERaYU1oSWUzc3JEX1NnclkifSwiZXhwIjoxNjUzNDI4NTM2fQ.-Ac9CIzmNcpifUSqrkKqTpVeKpMcoKQcS_bif8fs_Kk",
               "Accept": "application/json",
               "api-token":"zf-MNrWY3vB3QpuyRqBBJafoaNSgPEejxskw4m7EcNWDxnI976PDZaMhIe3srD_SgrY",
               "user-email": "stevenks17@gmail.com"
@@ -156,37 +148,23 @@ export default {
         })
       },
      
-    // await axios
-    //   .get("https://www.universal-tutorial.com/api/getaccesstoken/", {
-    //     headers: {
-    //       "Accept": "application/json",
-    //       "api-token": "zf-MNrWY3vB3QpuyRqBBJafoaNSgPEejxskw4m7EcNWDxnI976PDZaMhIe3srD_SgrY",
-    //       "user-email": "stevenks17@gmail.com",
-    //     },
-    //   })
-
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
-
-     getCountries() {
-       axios.get("https://www.universal-tutorial.com/api/countries/", {
+     async getCountries() {
+       this.loading = true
+       await axios.get("https://www.universal-tutorial.com/api/countries/", {
           headers: {
               "Authorization": `Bearer ${this.token}`,
               "Accept": "application/json"
           }
         }) 
         .then(response => {
+        this.loading = false
           this.countries = response.data
         })
     },
 
-     getStates() {
-       axios.get(`https://www.universal-tutorial.com/api/states/${this.selectedCountry}`, {
+     async getStates() {
+       this.loading = true
+       await axios.get(`https://www.universal-tutorial.com/api/states/${this.selectedCountry}`, {
           headers: {
               "Authorization": `Bearer ${this.token}`,
               "Accept": "application/json"
@@ -195,11 +173,12 @@ export default {
         .then(response => {
           this.states = response.data
         })
+        this.loading = false
         console.log(this.states)
     },
 
-     getCities() {
-       axios.get(`https://www.universal-tutorial.com/api/cities/${this.selectedState}`, {
+     async getCities() {
+       await axios.get(`https://www.universal-tutorial.com/api/cities/${this.selectedState}`, {
           headers: {
               "Authorization": `Bearer ${this.token}`,
               "Accept": "application/json"
@@ -207,7 +186,9 @@ export default {
         }) 
         .then(response => {
           this.cities = response.data
+
         })
+
         console.log(this.cities)
     },
   },
@@ -219,9 +200,6 @@ export default {
 </script>
 
 <style>
-
-
-
 .title {
   font-size: 1.25rem;
   letter-spacing: -.0166573em;
@@ -237,7 +215,7 @@ export default {
   color: rgba(124, 65, 212, 0.836);
   display: block;
   margin-top: 3px;
-  padding-left: 10px;
+  padding: 10px;
   width: 380px;
   
 }
